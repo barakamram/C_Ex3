@@ -2,13 +2,12 @@
 
 
 void shift_element(int* arr, int i){
-    int [] array = new int[array.length+i];
-    int jump =4;
+    int jump = 1;
     while (int j; j<i ,j++){
     int temp = *(arr+ jump);
-    *(arr+jump) = *arr;
+    *(arr+ jump) = *arr;
     *arr = temp;
-    jump+4;
+    jump++;
     }
 
 

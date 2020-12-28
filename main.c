@@ -1,4 +1,5 @@
-
+#include <studio.h>
+#include "shift_element.c"
 
 int main (){
 int x,y;
