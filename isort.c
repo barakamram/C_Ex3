@@ -1,5 +1,5 @@
-
-
+#include <studio.h>
+#include "isort.h"
 
 void shift_element(int* arr, int i){
     int jump = 1;
@@ -10,5 +10,6 @@ void shift_element(int* arr, int i){
     jump++;
     }
 
-
+void insertion_sort(int* arr , int len){
+}
 }
