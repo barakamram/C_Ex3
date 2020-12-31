@@ -1,20 +1,18 @@
-CC = gcc
-AR =ar
-MAIN = main.o
-TARGETS = isort.o
-FLAGS = -Wall -g
+CC=gcc
+AR=ar
+FLAGS= -Wall -g
 
-all: main.o isort.o
-      $(CC)  $(FLAGS) -o main main.o isort.o
-
+all: libmyEx3.a isort txtfind
+txtfind: txtfind.o libmyEx3.a
+	$(CC) $(FLAGS) -o txtfind txtfind.o libmyEx3.a
+isort: isort.o libmyEx3.a
+	$(CC) $(FLAGS) -o isort isort.o libmyEx3.a
+libmyEx3.a: txtfind.o isort.o
+	$(AR) -rcs libmyEx3.a txtfind.o isort.o
+txtfind.o: txtfind.c txtfind.h
+	$(CC) $(FLAGS) -c $< -o $@
 isort.o: isort.c isort.h
-      $(CC)  $(FLAGS) -c isort.c
-
-main.o: main.c isort.h
-      $(CC)  $(FLAGS) -c main.c
-
+	$(CC) $(FLAGS) -c $< -o $@
 .PHONY: clean all
-
 clean:
-        rm -f *.o *.a main
-
+	rm *.o *.a
