@@ -1,42 +1,46 @@
-#include <studio.h>
+#include <stdio.h>
+#include <string.h>
 #include "isort.h"
-#define NUMBERS 50
+#define ArrSize 50
 
-void shift_element(int* arr, int i){
-    int jump = 1;
-    while (int j; j<i ,j++){
-    int temp = *(arr+ jump);
-    *(arr+ jump) = *arr;
-    *arr = temp;
-    jump++;
-    }
 
-void insertion_sort(int* arr , int len){
-    if(arr != null){
-	    int *i;
-	    int *last = arr + len;
-	    for(i = arr + 1; i < last; i++)
-		if(*i < *(i-1))
-			shift_element(arr, i);
-			}
-    }
+void shift_element(int *arr,int i){
+  int Arr = *(arr+i);
+  for (int *k = (arr + i); k > arr; k--){
+    *(k) = *(k-1);
+  }
+  *arr = Arr;
 }
+
+void insertion_sort(int *arr,int len){
+  for(int *i = arr+1; i <arr+len; i++) {
+    int *k = i-1;
+    while( k >= arr){
+      if (*(k+1) < *k){
+        int temp = *(k+1);
+        shift_element(k,1);
+        *k=temp;
+      }
+      // *(arr +i +k) = *(arr+k);
+      k--;
+    }
+  }
+}
+
 int main(){
-    int arr[NUMBERS]={0};
-    int x;
-    int i=0;
-    printf("Your limit is 50 numbers\n");
-    while(i<NUMBERS){
-        if(scanf("%d",&x)==1){
-            *(arr+i)=x;
-            i++;
-        }
-    }
-    int* pointer=arr;
-    insertion_sort(pointer,NUMBERS);
-    for(int i=0;i<NUMBERS;i++){
-        if(i==NUMBERS-1){printf("%d",*(arr+i));}
-        else{printf("%d,",*(arr+i));}
-    }
-    return 1;
+  int Arr[ArrSize];
+  int count=0;
+  printf("please insert 50 numbers:\n");
+  while (count < ArrSize){
+    scanf("%d", Arr+count);
+    count++;
+  }
+  insertion_sort(Arr,ArrSize);
+  int i = 0;
+  for (i=0; i < ArrSize-1; i++) {
+    printf("%d," , *(Arr+i));
+  }
+  printf("%d\n" , *(Arr+i));
+  return 0;
+
 }
