@@ -85,9 +85,11 @@ void print_similar_words(char *str){
 }
 
 int main(){
+  FILE *find_input;
+  find_input = fopen("/hw3_self_tests/find_input.txt", "r");
   char line[LINE];
   char word[WORD];
-  fgets(line,LINE,stdin);
+  fgets(line,LINE,(FILE*) find_input);
   int i = 0;
   int k = 0;
   for (i = 0; i < LINE; i++) {
