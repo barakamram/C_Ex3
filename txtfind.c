@@ -13,9 +13,9 @@ int get_line(char s[]) {
       s[count] = k;
       count++;
       k = getc(stdin);
-      if(k==EOF) return -1;
     }
   }
+  if(k==EOF) return -1;
   s[count]='\0';
   return strlen(s);
 }
@@ -67,7 +67,7 @@ void print_similar_words(char *str){
 }
 
 int main(){
-  char word[WORD] = {0};
+  char word[WORD] = {};
   char k=getc(stdin);
   char operation;
   int count=0;
@@ -88,7 +88,7 @@ int main(){
             print_similar_words(word);
             break;
         default:
-              printf("invalid\n");
+              printf("No option selected\n");
     }
   }
 }
