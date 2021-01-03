@@ -12,10 +12,10 @@ isort: isort.o
 	$(CC) $(FLAGS) -o isort isort.o
 
 isort.o: isort.c
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c isort.c
 
 txtfind.o: txtfind.c
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c txtfind.c
 
 .PHONY: clean all
 

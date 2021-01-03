@@ -4,108 +4,91 @@
 #define LINE 256
 #define WORD 30
 
-int get_line(char s[]){
-  if(s==NULL) return -1;
-  int count = 0;
-  for (int i = 0; i < LINE; i++) {
-    if(s[i]=='\n')
-      return count;
-    count++;
-  }
-  return count;
-}
-
-int get_word(char w[]){
-  if(w==NULL) return -1;
-  int count = 0;
-  for (int i = 0; i < WORD; i++) {
-    if(w[i]=='\n' || w[i]=='\t' || w[i]==' ')
-      return count;
-    count++;
-  }
-  return count;
-}
-
-int substring(char *str1,char *str2){
-  if (strlen(str1) < strlen(str2))
-    return 0;
-  for (int i = 0; i < strlen(str1); i++){
-    int j = 0;
-    for (j=0; j < strlen(str2); j++){
-      if (str1[i]==str2[j]){
-        i++;
-        if(j==strlen(str2)-1)
-          return 1;
-      }
-      else break;
+//returns the length of the line
+int get_line(char s[]) {
+  int count=0, i=1;
+  char k = getc(stdin);
+  for (;i < LINE;i++){
+    if(k!=EOF && k!='\n' && k!='\r'){
+      s[count] = k;
+      count++;
+      k = getc(stdin);
+      if(k==EOF) return -1;
     }
   }
+  s[count]='\0';
+  return strlen(s);
+}
+//returns the length of the word
+int get_word(char w[]) {
+  int count=0, i=1;
+  char k = getc(stdin);
+  for (;i < WORD;i++){
+    if(k!=EOF && k!=' ' && k!='\n' && k!='\t' && k!='\r'){
+      w[count] = k;
+      count++;
+      k = getc(stdin);
+    }
+  }
+  if(k==EOF) return -1;
+  w[count]='\0';
+  return strlen(w);
+}
+//checks if one string is contained in the other
+int substring(char *str1,char *str2) {
+  if (strstr(str1,str2) != NULL) return 1;
   return 0;
 }
-
+//checks if there are similar words to the current word
 int similar(char *s,char *t,int n){
-  int count = 0;
-  int i = 0;
-  int j = 0;
-  if(n==0 && s==t)
-    return 1;
-  for (i = 0; i < strlen(s);) {
-    for (j = 0; j < strlen(t);) {
-      if(s[i]==t[j]) {
-        i++;
-        j++;
-      }
-      else {
-        i++;
-        count++;
-      }
-    }
-    if(count > n)
-      return 0;
-    else if (j==strlen(t)-1 && count==n)
-      return 1;
+  int count=0, i=0, j=0;
+  if(n==0 && s==t) return 1;
+  if(strlen(s) < strlen(t)) return 0;
+  for (; i < strlen(s); i++) {
+    if(*(s+i) == *(t+j)) j++;
+    else count++;
+    if(count > n) return 0;
   }
-  return 0;
+  return 1;
 }
-
+//prints all the lines that contained similar words to the current word
 void print_lines(char *str){
   char line[LINE];
-  while(get_line(line)!=-1){
-    if(substring(line,str))
-      printf("%s", line);
-  }
+  while(get_line(line) >= 0)
+    if (substring(line,str))
+      printf("%s\n", line);
 }
-
+// prints all the similar words to the current word
 void print_similar_words(char *str){
   char word[WORD];
-  while(get_word(word)!=-1){
+  while(get_word(word) >= 0)
     if(similar(word,str,1))
       printf("%s\n", word);
-  }
 }
 
 int main(){
-  //FILE *find_input;
-  //find_input = fopen("/hw3_self_tests/find_input.txt", "w+");
-  char line[LINE];
-  char word[WORD];
-  fgets(line,LINE,stdin);
-  int i = 0;
-  int k = 0;
-  for (i = 0; i < LINE; i++) {
-    if(line[i] == ' ' || line[i] == '\n' || line[i] == '\t') {
-      word[k] = '\0';
-      break;
+  char word[WORD] = {0};
+  char k=getc(stdin);
+  char operation;
+  int count=0;
+  if(k!=EOF){
+    //read the first word and update 'word'
+    while(k!=' '){
+        word[count]=k;
+        count++;
+        k=getc(stdin);
     }
-    else {
-      word[k]=line[i];
-      k++;
+    //read the next char ('a' or 'b')
+    operation=getc(stdin);
+    switch(operation){
+        case 'a':
+            print_lines(word);
+            break;
+        case 'b':
+            print_similar_words(word);
+            break;
+        default:
+              printf("invalid\n");
     }
   }
-  i++;
-  if (line[i] == 'a')
-    print_lines(word);
-  if (line[i] == 'b')
-    print_similar_words(word);
-
 }

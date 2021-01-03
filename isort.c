@@ -28,21 +28,19 @@ void insertion_sort(int *arr,int len){
 }
 
 int main(){
-    int arr[ArrSize]={0};
-    int x;
-    int i=0;
-    printf("Please enter 50 numbers\n");
-    while(i<ArrSize){
-        if(scanf("%d",&x)==1){
-            *(arr+i)=x;
-            i++;
-        }
-    }
-    int* pointer=arr;
-    insertion_sort(pointer,ArrSize);
-    for(int i=0;i<ArrSize;i++){
-        if(i==ArrSize-1){printf("%d",*(arr+i));}
-        else{printf("%d,",*(arr+i));}
-    }
-    return 1;
+  int Arr[ArrSize];
+  int count=0;
+  printf("please insert 50 numbers:\n");
+  while (count < ArrSize){
+    scanf("%d", Arr+count);
+    count++;
+  }
+  insertion_sort(Arr,ArrSize);
+  int i = 0;
+  for (i=0; i < ArrSize-1; i++) {
+    printf("%d," , *(Arr+i));
+  }
+  printf("%d\n" , *(Arr+i));
+  return 0;
+
 }
