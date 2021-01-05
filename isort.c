@@ -21,7 +21,6 @@ void insertion_sort(int *arr,int len){
         shift_element(k,1);
         *k=temp;
       }
-      // *(arr +i +k) = *(arr+k);
       k--;
     }
   }

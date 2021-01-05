@@ -10,7 +10,7 @@ int get_line(char s[]) {
   char k = getc(stdin);
   for (;i < LINE;i++){
     if(k!=EOF && k!='\n' && k!='\r'){
-      s[count] = k;
+      *(s+count) = k;
       count++;
       k = getc(stdin);
     }
@@ -25,7 +25,7 @@ int get_word(char w[]) {
   char k = getc(stdin);
   for (;i < WORD;i++){
     if(k!=EOF && k!=' ' && k!='\n' && k!='\t' && k!='\r'){
-      w[count] = k;
+      *(w+count) = k;
       count++;
       k = getc(stdin);
     }
