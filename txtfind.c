@@ -16,7 +16,7 @@ int get_line(char s[]) {
     }
   }
   if(k==EOF) return -1;
-  s[count]='\0';
+  *(s+count)='\0';
   return strlen(s);
 }
 //returns the length of the word
@@ -31,7 +31,7 @@ int get_word(char w[]) {
     }
   }
   if(k==EOF) return -1;
-  w[count]='\0';
+  *(w+count)='\0';
   return strlen(w);
 }
 //checks if one string is contained in the other
